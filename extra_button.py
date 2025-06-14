@@ -46,12 +46,32 @@ def save_text_as_filename(image_path, folder_path):
     else:
         messagebox.showwarning("No Text Found", "No text detected in the image to save.")
 
+def save_text_with_preview(image_path, folder_path):
+    """
+    Save the extracted text from an image to a file, with a preview of the text.
+
+    Args:
+        image_path (str): Path to the image file.
+        folder_path (str): Path to the folder to save the file.
+    """
+    extracted_text = extract_text_from_image(image_path)
+    if extracted_text.strip():
+        filename = extracted_text.split('\n')[0][:50].replace(" ", "_").replace("/", "_") + ".txt"
+        save_path = os.path.join(folder_path, filename)
+        with open(save_path, "w", encoding="utf-8") as file:
+            file.write(extracted_text)
+        result_text.delete(1.0, tk.END)
+        result_text.insert(tk.END, extracted_text)
+        messagebox.showinfo("Success", f"Text saved as: {filename}")
+    else:
+        messagebox.showwarning("No Text Found", "No text detected in the image.")
+
 def process_save_text_as_filename():
     folder_path = filedialog.askdirectory(title="Select Save Folder")
     if folder_path:
         file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg;*.bmp;*.tiff")])
         if file_path:
-            save_text_as_filename(file_path, folder_path)
+            save_text_with_preview(file_path, folder_path)
 
 def process_bulk_images(folder_path, save_as_pdf=False):
     """
@@ -143,7 +163,7 @@ def view_history():
 
 # Initialize the GUI
 root = tk.Tk()
-root.title("Bulk Image to Text Extractor")
+root.title("Enhanced Bulk Image to Text Extractor")
 root.geometry("500x750")
 
 # Buttons for single file and bulk processing
