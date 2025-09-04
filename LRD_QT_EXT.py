@@ -361,9 +361,6 @@ class OCRApp(QMainWindow):
             "✔ Each extracted text also saved in named folder\n"
             "✔ CPU-only (runs even on i3 / 2GB RAM / no GPU)\n\n"
             "Developer: LRD_SOUL\n"
-            "Phone: +91-9944762900\n"
-            "Email: inscreator728@gmail.com\n"
-            "Instagram: @LRD_SOUL\n"
             "Telegram: @LRD_SOUL\n"
         )
 
@@ -374,3 +371,4 @@ if __name__ == "__main__":
     window = OCRApp()
     window.show()
     sys.exit(app.exec())
+
